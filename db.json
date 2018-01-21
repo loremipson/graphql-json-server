@@ -1,0 +1,32 @@
+{
+  "pages": [
+    {
+      "id": "1",
+      "title": "Sample Page",
+      "content": "<p>Some page content</p>",
+      "categoryId": "1",
+      "authorId": "1"
+    }
+  ],
+  "posts": [
+    {
+      "id": "1",
+      "title": "Sample Post",
+      "content": "<p>Some post content</p>",
+      "authorId": "1"
+    }
+  ],
+  "authors": [
+    {
+      "id": "1",
+      "name": "Someuser"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "title": "General",
+      "description": "Some sample content"
+    }
+  ]
+}
