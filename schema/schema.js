@@ -62,12 +62,6 @@ const RootQuery = new GraphQLObjectType({
         return axios.get(`${api}/posts/${args.id}`).then(res => res.data);
       },
     },
-    allPosts: {
-      type: PostType,
-      resolve() {
-        return axios.get(`${api}/posts`).then(res => res.data);
-      },
-    },
     page: {
       type: PageType,
       args: {
@@ -77,12 +71,6 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parentValue, args) {
         return axios.get(`${api}/pages/${args.id}`).then(res => res.data);
-      },
-    },
-    allPages: {
-      type: PageType,
-      resolve() {
-        return axios.get(`${api}/pages`).then(res => res.data);
       },
     },
   },
