@@ -1,7 +1,7 @@
 const graphql = require('graphql');
 const axios = require('axios');
 
-const { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLSchema } = graphql;
+const { GraphQLObjectType, GraphQLString, GraphQLList, GraphQLSchema, GraphQLNonNull } = graphql;
 const api = 'http://localhost:3000';
 
 const PostType = new GraphQLObjectType({
@@ -62,6 +62,12 @@ const RootQuery = new GraphQLObjectType({
         return axios.get(`${api}/posts/${args.id}`).then(res => res.data);
       },
     },
+    allPosts: {
+      type: PostType,
+      resolve() {
+        return axios.get(`${api}/posts`).then(res => res.data);
+      },
+    },
     page: {
       type: PageType,
       args: {
@@ -73,9 +79,31 @@ const RootQuery = new GraphQLObjectType({
         return axios.get(`${api}/pages/${args.id}`).then(res => res.data);
       },
     },
+    allPages: {
+      type: PageType,
+      resolve() {
+        return axios.get(`${api}/pages`).then(res => res.data);
+      },
+    },
+  },
+});
+
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    addAuthor: {
+      type: AuthorType,
+      args: {
+        name: { type: new GraphQLNonNull(GraphQLString) },
+      },
+      resolve(parentValue, { name }) {
+        return axios.post(`${api}/authors`, { name }).then(res => res.data);
+      },
+    },
   },
 });
 
 module.exports = new GraphQLSchema({
   query: RootQuery,
+  mutation,
 });
